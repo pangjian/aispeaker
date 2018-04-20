@@ -4,8 +4,10 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "egg": "^2.2.1",
-    "egg-scripts": "^2.5.0"
+    "egg-scripts": "^2.5.0",
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "autod": "^3.0.1",
