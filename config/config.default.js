@@ -7,6 +7,12 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1524191919001_4692';
 
   // add your config here
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
   config.middleware = [];
 
   return config;
