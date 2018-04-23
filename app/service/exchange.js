@@ -24,7 +24,9 @@ class ExchangeService extends Service {
     let currencyObj = {};
     if (res.result) {
 
-      currencyObj = _.find(res.result, { curCode: currency });
+      currencyObj = _.find(res.result, function(o) {
+        return o.curCode === currency;
+      });
     }
     return currencyObj;
   }
