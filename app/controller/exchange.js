@@ -19,9 +19,11 @@ class ExchangeController extends Controller {
       // message = messageBuilder.buildResponse([ '这是一个例子', '播放完成后退出' ], true);
       const slot_info = _.get(req.body, 'request.slot_info');
       if (slot_info) {
-        if(request.slot_info.intent_name == 'query_exchange')
-        let rateObj = await ctx.service.exchange.getExchange(slot_info.slots[0].value);
-        message = messageBuilder.buildResponse([ '这是一个例子', '播放完成后退出' ], true);
+        if (_.get(req.body, 'request.slot_info.intent_name') === 'query_exchange') {
+          const rateObj = await ctx.service.exchange.getExchange(slot_info.slots[0].value);
+          message = messageBuilder.buildResponse([ '这是一个例子', '播放完成后退出' ], true);
+        }
+
       }
     } else {
       // 结束词请求
