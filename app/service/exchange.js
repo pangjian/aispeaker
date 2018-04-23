@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+const _ = require('lodash');
 
 class ExchangeService extends Service {
   async getExchange(currency) {
