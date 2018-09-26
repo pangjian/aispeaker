@@ -4,16 +4,16 @@ const Controller = require('egg').Controller;
 const _ = require('lodash');
 const messageBuilder = require('../common/message-builder');
 
-class ExchangeController extends Controller {
+class PandoraController extends Controller {
   async get() {
     const ctx = this.ctx;
     const req = ctx.request;
     const query = _.get(req.body, 'query'); // 用户说的话
     const requestType = _.get(req.body, 'request.type'); // Start,Intent,End
-    let message = '';
+    let message = 'nothing';
     if (requestType === 0) {
       // 唤醒词请求
-      message = messageBuilder.buildResponseSimple('欢迎使用中行牌价', false);
+      message = messageBuilder.buildResponseSimple('欢迎使用中行百宝箱', false);
     } else if (requestType === 1) {
       // 意图请求
       // message = messageBuilder.buildResponse([ '这是一个例子', '播放完成后退出' ], true);
@@ -39,4 +39,4 @@ class ExchangeController extends Controller {
   }
 }
 
-module.exports = ExchangeController;
+module.exports = PandoraController;

@@ -6,6 +6,6 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
-  router.get('/exchange', controller.exchange.get);
-  router.post('/exchange', controller.exchange.get);
+  router.get('/pandora', controller.pandora.get);
+  router.post('/pandora', controller.pandora.get);
 };
