@@ -19,25 +19,19 @@ class PandoraController extends Controller {
       // message = messageBuilder.buildResponse([ '这是一个例子', '播放完成后退出' ], true);
       const slot_info = _.get(req.body, 'request.slot_info');
       if (slot_info) {
-        if (_.get(req.body, 'request.slot_info.intent_name') === 'query_exchange') {
-        switch (_.get(req.body, 'request.slot_info.intent_name')) {
-          case "query_exchange": {
-            const rateObj = await ctx.service.exchange.getExchange(slot_info.slots[0].value);
-            message = messageBuilder.buildResponse([
-              '银行现汇买入价' + rateObj.buyRate,
-              '银行现汇卖出价' + rateObj.sellRate,
-              '银行现钞买入价' + rateObj.buyNoteRate,
-              '银行现钞卖出价' + rateObj.sellNoteRate,
-            ], false);
-            break;
-          }
-          case "query_balance": {
-            message = messageBuilder.buildResponseSimple('您的余额是9999.99元', false);
-            break;
-          }
-          default: {
-            message = messageBuilder.buildResponseSimple('我不太明白你的意思', false);
-          }
+        const slot_intent_name = _.get(req.body, 'request.slot_info.intent_name');
+        if (slot_intent_name === 'query_exchange') {
+          const rateObj = await ctx.service.exchange.getExchange(slot_info.slots[0].value);
+          message = messageBuilder.buildResponse([
+            '银行现汇买入价' + rateObj.buyRate,
+            '银行现汇卖出价' + rateObj.sellRate,
+            '银行现钞买入价' + rateObj.buyNoteRate,
+            '银行现钞卖出价' + rateObj.sellNoteRate,
+          ], false);
+        }
+
+        if (slot_intent_name === 'query_balance') {
+          message = messageBuilder.buildResponseSimple('您的余额是9999.99元', false);
         }
 
       }
