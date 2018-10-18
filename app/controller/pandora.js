@@ -8,7 +8,7 @@ class PandoraController extends Controller {
   async get() {
     const ctx = this.ctx;
     const req = ctx.request;
-    const query = _.get(req.body, 'query'); // 用户说的话
+    // const query = _.get(req.body, 'query'); // 用户说的话
     const requestType = _.get(req.body, 'request.type'); // Start,Intent,End
     let message = 'nothing';
     if (requestType === 0) {
@@ -20,6 +20,7 @@ class PandoraController extends Controller {
       const slot_info = _.get(req.body, 'request.slot_info');
       if (slot_info) {
         const slot_intent_name = _.get(req.body, 'request.slot_info.intent_name');
+
         if (slot_intent_name === 'query_exchange') {
           const rateObj = await ctx.service.exchange.getExchange(slot_info.slots[0].value);
           message = messageBuilder.buildResponse([
@@ -31,7 +32,13 @@ class PandoraController extends Controller {
         }
 
         if (slot_intent_name === 'query_balance') {
-          message = messageBuilder.buildResponseSimple('您的余额是9999.99元', false);
+          const balance = await ctx.service.account.getBalanceByAccountName(slot_info.slots[0].value);
+          if (balance) {
+            message = messageBuilder.buildResponseSimple('您' + slot_info.slots[0].value + '的余额是' + balance + '元', false);
+          } else {
+            message = messageBuilder.buildResponseSimple('无此账户', false);
+          }
+
         }
 
       }
