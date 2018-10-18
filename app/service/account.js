@@ -24,7 +24,10 @@ class AccountService extends Service {
     const account = _.find(accountData, function(o) {
       return o.name === accountName;
     });
-    return account.balance;
+    if (account) {
+      return account.balance;
+    }
+    return null;
   }
 }
 
