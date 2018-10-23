@@ -28,7 +28,9 @@ class PandoraController extends Controller {
             '银行现汇卖出价' + rateObj.sellRate,
             '银行现钞买入价' + rateObj.buyNoteRate,
             '银行现钞卖出价' + rateObj.sellNoteRate,
-          ], false);
+          ], false, {
+            lastCurrency: slot_info.slots[0].value,
+          });
         }
 
         if (slot_intent_name === 'query_balance') {
