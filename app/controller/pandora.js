@@ -41,6 +41,9 @@ class PandoraController extends Controller {
 
         }
 
+        if (slot_intent_name === 'exchange_booking') {
+          message = '测试回复';
+        }
       }
     } else if (requestType === 2) {
       // 结束词请求
