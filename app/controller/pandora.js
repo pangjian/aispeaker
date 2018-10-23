@@ -42,7 +42,7 @@ class PandoraController extends Controller {
         }
 
         if (slot_intent_name === 'exchange_booking') {
-          message = '测试回复';
+          message = messageBuilder.buildResponseSimple('测试回复', false);
         }
       }
     } else if (requestType === 2) {
