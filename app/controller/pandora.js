@@ -55,7 +55,14 @@ class PandoraController extends Controller {
             currency = _.get(req.body, 'session.attributes.lastCurrency');
           }
           const amount = findSlotByName('amount', slot_info.slots);
-          message = messageBuilder.buildResponseSimple('测试回复' + ctx.__('currency_name_' + currency), false);
+          if (currency && amount) {
+            message = messageBuilder.buildResponseSimple([
+              '已预约您家' + ctx.service.user.getAddress() + '最近网点',
+              '兑换' + amount + ctx.__('currency_name_' + currency),
+            ], false);
+          } else {
+            message = messageBuilder.buildResponseSimple('请问您需要预约什么币种多少元？', false);
+          }
         }
       }
     } else if (requestType === 2) {
