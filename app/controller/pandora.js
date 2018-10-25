@@ -56,9 +56,10 @@ class PandoraController extends Controller {
           }
           const amount = findSlotByName('amount', slot_info.slots);
           if (currency && amount) {
-            message = messageBuilder.buildResponseSimple([
+            message = messageBuilder.buildResponse([
               '已预约您家' + await ctx.service.user.getAddress() + '最近网点',
               '兑换' + amount.value + ctx.__('currency_name_' + currency.value),
+              '请您十日内到指定网点领取',
             ], false);
           } else {
             message = messageBuilder.buildResponseSimple('请问您需要预约什么币种多少元？', false);
