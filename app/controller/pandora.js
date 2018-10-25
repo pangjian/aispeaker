@@ -35,7 +35,7 @@ class PandoraController extends Controller {
             '需要兑换外币么？',
             '请说【预约外币】',
           ], false, {
-            lastCurrency: slot_info.slots[0].value,
+            lastCurrency: slot_info.slots[0],
           });
         }
 
@@ -58,7 +58,7 @@ class PandoraController extends Controller {
           if (currency && amount) {
             message = messageBuilder.buildResponseSimple([
               '已预约您家' + await ctx.service.user.getAddress() + '最近网点',
-              '兑换' + amount + ctx.__('currency_name_' + currency),
+              '兑换' + amount.value + ctx.__('currency_name_' + currency.value),
             ], false);
           } else {
             message = messageBuilder.buildResponseSimple('请问您需要预约什么币种多少元？', false);
