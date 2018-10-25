@@ -52,10 +52,10 @@ class PandoraController extends Controller {
         if (slot_intent_name === 'exchange_booking') {
           let currency = findSlotByName('currency', slot_info.slots);
           if (!currency) {
-            currency = findSlotByName('lastCurrency', _.get(req.body, 'session.attributes'));
+            currency = _.get(req.body, 'session.attributes.lastCurrency');
           }
           const amount = findSlotByName('amount', slot_info.slots);
-          message = messageBuilder.buildResponseSimple('测试回复', false);
+          message = messageBuilder.buildResponseSimple('测试回复' + ctx.__('currency_name_' + currency), false);
         }
       }
     } else if (requestType === 2) {

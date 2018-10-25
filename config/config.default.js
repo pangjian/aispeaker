@@ -15,5 +15,9 @@ module.exports = appInfo => {
 
   config.middleware = [];
 
+  config.i18n = {
+    defaultLocale: 'zh-CN',
+  };
+
   return config;
 };
