@@ -3,7 +3,11 @@
 const Controller = require('egg').Controller;
 const _ = require('lodash');
 const messageBuilder = require('../common/message-builder');
-
+const findSlotByName = function(name, slots) {
+  return _.find(slots, function(o) {
+    return o.name === name;
+  });
+};
 class PandoraController extends Controller {
   async get() {
     const ctx = this.ctx;
@@ -28,6 +32,8 @@ class PandoraController extends Controller {
             '银行现汇卖出价' + rateObj.sellRate,
             '银行现钞买入价' + rateObj.buyNoteRate,
             '银行现钞卖出价' + rateObj.sellNoteRate,
+            '需要兑换外币么？',
+            '请说【预约外币】',
           ], false, {
             lastCurrency: slot_info.slots[0].value,
           });
@@ -44,6 +50,11 @@ class PandoraController extends Controller {
         }
 
         if (slot_intent_name === 'exchange_booking') {
+          let currency = findSlotByName('currency', slot_info.slots);
+          if (!currency) {
+            currency = findSlotByName('lastCurrency', _.get(req.body, 'session.attributes'));
+          }
+          const amount = findSlotByName('amount', slot_info.slots);
           message = messageBuilder.buildResponseSimple('测试回复', false);
         }
       }
@@ -55,5 +66,4 @@ class PandoraController extends Controller {
     ctx.body = message;
   }
 }
-
 module.exports = PandoraController;
